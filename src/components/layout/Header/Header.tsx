@@ -1,10 +1,10 @@
 /* VENDOR */
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 /* APPLICATION */
 import "./Header.css";
-import { ModalCreateItem } from "../Modal/ModalCreateItem";
+import { ModalCreateItem } from "../../Modal/ModalItems/ModalCreateItem";
 
 export const Header = () => {
   const { pathname } = useLocation(),

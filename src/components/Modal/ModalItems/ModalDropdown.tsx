@@ -1,10 +1,11 @@
 /* VENDOR */
+import React from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 
 /* APPLICATION */
-import down from "../icons/down.svg";
-import { selectAllCategories } from "../features/categoriesSlice";
+import down from "../../../assets/icons/down.svg";
+import { selectAllCategories } from "../../../store/reducers/categoriesSlice";
+import {useAppSelector} from "../../../store/hooks";
 
 interface ModalDropdownProps {
   selected: string | undefined;
@@ -16,7 +17,7 @@ export const ModalDropdown: React.FC<ModalDropdownProps> = ({
   setSelected,
 }) => {
   const [isActive, setIsActive] = useState(false),
-    options = useSelector(selectAllCategories);
+    options = useAppSelector(selectAllCategories);
 
   return (
     <div className="dropdown" onClick={() => setIsActive(!isActive)}>

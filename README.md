@@ -1,3 +1,12 @@
+<h1>Тестовое задание для Surf Frontend Bootcamp</h1>
+<p>Тебе достался проект, оставшийся от сотрудника, который недавно уволился. Задача — довести проект до приемлемого качества и сдать заказчику.</p>
+
+<ol>Необходимо сделать:
+<li>Пофиксить баги</li>
+<li>Поправить файловую архитектуру</li>
+<li>Разобраться с типами и TS.</li>
+</ol>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.

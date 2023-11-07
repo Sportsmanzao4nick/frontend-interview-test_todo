@@ -1,4 +1,5 @@
-import close from "../icons/close.svg";
+import React from "react";
+import close from "../../../assets/icons/close.svg";
 
 interface ModalHeaderProps {
   clearState?(): void;

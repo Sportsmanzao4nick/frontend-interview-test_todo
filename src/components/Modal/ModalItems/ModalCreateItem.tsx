@@ -1,17 +1,17 @@
 /* VENDOR */
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 /* APPLICATION */
-import { Modal } from "./Modal";
+import { Modal } from "../Modal";
 import { ModalHeader } from "./ModalHeader";
 import { ModalInput } from "./ModalInput";
 import { ModalRow } from "./ModalRow";
 import { ModalTextarea } from "./ModalTextarea";
 import { ModalFooter } from "./ModalFooter";
-import { tasksAdded } from "../features/tasksSlice";
-import { categoriesAdded } from "../features/categoriesSlice";
+import { tasksAdded } from "../../../store/reducers/tasksSlice";
+import { categoriesAdded } from "../../../store/reducers/categoriesSlice";
+import {useAppDispatch} from "../../../store/hooks";
 
 interface ModalCreateItemProps {
   active: boolean;
@@ -22,7 +22,7 @@ export const ModalCreateItem: React.FC<ModalCreateItemProps> = ({
   active,
   setActive,
 }) => {
-  const dispatch = useDispatch(),
+  const dispatch = useAppDispatch(),
     { pathname } = useLocation(),
     isCategories = pathname.includes("categories"),
     [name, setName] = useState(""),
@@ -70,13 +70,13 @@ export const ModalCreateItem: React.FC<ModalCreateItemProps> = ({
                     : tasksAdded({
                         name,
                         description,
-                        category: setSelected,
+                        category: selected,
                       })
                 );
                 clearState();
                 setActive(false);
               }
-            : () => {}
+            : () => { return null}
         }
       />
     </Modal>

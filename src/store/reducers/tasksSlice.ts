@@ -1,18 +1,21 @@
 /* VENDOR */
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
 /* APPLICATION */
-import { RootState } from "../app/store";
+import { RootState } from "../store";
 
-export interface CategoriesState {
-  id: string;
+export interface Task {
   name: string;
   description: string;
   category: string;
 }
 
-const initialState: CategoriesState[] = [
+export interface TasksState extends Task{
+  id: string;
+}
+
+const initialState: TasksState[] = [
   {
     id: "dcf6c7ea-56fe-4e36-960b-686ebf86d651",
     name: "Задача",
@@ -29,7 +32,7 @@ const initialState: CategoriesState[] = [
     id: "5a034ea1-6159-4805-a4be-e8c160d8ef10",
     name: "Задача3",
     description: "Описание может быть длинным",
-    category: "",
+    category: "36704c57-4575-4112-b962-948b04a20506",
   },
 ];
 
@@ -37,13 +40,13 @@ export const tasksSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    tasksAdded: (state, action) => {
+    tasksAdded: (state, action:PayloadAction<Task>) => {
       state.push({
         id: uuidv4(),
         ...action.payload,
       });
     },
-    tasksUpdated: (state, action) => {
+    tasksUpdated: (state, action:PayloadAction<TasksState>) => {
       const { id, name, description, category } = action.payload,
         existingTask = state.find((task) => task.id === id);
 
@@ -53,16 +56,18 @@ export const tasksSlice = createSlice({
         existingTask.category = category;
       }
     },
-    tasksRemoved: (state, action) => {
-      let rm = (el: CategoriesState, i: number, arr: CategoriesState[]) =>
+    tasksRemoved: (state, action:PayloadAction<string>) => {
+      const rm = (el: TasksState, i: number, arr: TasksState[]) =>
           el.id === action.payload,
         rmTaskIndex = state.findIndex(rm);
-
       state.splice(rmTaskIndex, 1);
     },
-    tasksClearedCategories: (state, action) => {
-      state.map((task) => {
-        if (task.category === action.payload) task.category = "";
+    tasksClearedCategories: (state, action:PayloadAction<string>) => {
+      return state.map((task) => {
+        if (task.category === action.payload) {
+          return { ...task, category: "" };
+        }
+        return task;
       });
     },
   },
